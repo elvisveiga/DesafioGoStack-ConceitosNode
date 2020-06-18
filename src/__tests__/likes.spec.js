@@ -29,9 +29,12 @@ describe("Likes", () => {
     expect(response.body).toMatchObject(result);
   });
 
-  it("should not be able to like a repository that does not exist", async () => {
-    await request(app)
-      .post(`/repositories/123/like`)
-      .expect(400);
+  it("should not be able to like a repository that does not exist", async done => {
+    const response = await request(app)
+      .post(`/repositories/123/like`);
+
+      expect(response.statusCode).toBe(400);
+
+      done();
   });
 });
