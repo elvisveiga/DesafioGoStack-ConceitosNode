@@ -3,7 +3,7 @@ const app = require("../app");
 const toResult = require("../util");
 
 describe("Likes", () => {
-  it("should be able to give a like to the repository", async () => {
+  it("should be able to give a like to the repository", async done => {
     const repository = await request(app)
       .post("/repositories")
       .send({
@@ -27,6 +27,7 @@ describe("Likes", () => {
     result = toResult({ likes: 2});
 
     expect(response.body).toMatchObject(result);
+    done();
   });
 
   it("should not be able to like a repository that does not exist", async done => {
