@@ -1,6 +1,5 @@
 const request = require("supertest");
 const app = require("../app");
-const toResult = require("../util");
 
 describe("Likes", () => {
   it("should be able to give a like to the repository", async done => {
@@ -13,20 +12,16 @@ describe("Likes", () => {
       });
 
     let response = await request(app).post(
-      `/repositories/${repository.body.data.id}/like`
+      `/repositories/${repository.body.id}/like`
     );
-    
-    let result = toResult({ likes: 1});
- 
-    expect(response.body).toMatchObject(result);
+     
+    expect(response.body).toMatchObject({ likes: 1});
 
     response = await request(app).post(
-      `/repositories/${repository.body.data.id}/like`
+      `/repositories/${repository.body.id}/like`
     );
 
-    result = toResult({ likes: 2});
-
-    expect(response.body).toMatchObject(result);
+    expect(response.body).toMatchObject({ likes: 2});
     done();
   });
 
